@@ -59,6 +59,9 @@ class Car{
     if(CAR_TEXTURE_LOADED){
       ctx.drawImage(CAR_TEXTURE, (TEXTURE_X  + TEXTURE_WIDTH) * this.textureIndex, TEXTURE_Y, TEXTURE_WIDTH, TEXTURE_HEIGHT, 
         -this.width / 2, -this.height / 2, this.width, this.height);
+    }else{
+      ctx.fillStyle = "#00ff00";
+      ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
     }
     ctx.restore();
     ctx.closePath();
