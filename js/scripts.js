@@ -1,7 +1,8 @@
 const GAME_DEFAULT_WIDTH = 300;
 const GAME_DEFAULT_HEIGHT = 600;
 const GAME_DEFAULT_LANE_WIDTH = GAME_DEFAULT_WIDTH / 3;
-const GAME_MIN_SPAWN_SPEED = 3000;
+const GAME_MIN_SPAWN_SPEED = 600;
+const GAME_DEFAULT_START_SPAWN_SPEED = 3000;
 const GAME_DEFAULT_LANE_START_HEIHT = 50;
 const GAME_DEFAULT_LANE_START_OFFSET = 5;
 const GAME_DEFAULT_LANE_START_GAP = 15;
@@ -87,8 +88,6 @@ class Car{
   } 
 
 }
-
-
 
 class Game{
 
@@ -230,7 +229,9 @@ class Game{
       }else if(car.y > this.height){
         this.score += 100;
         this.carSpeed += 5;
-        this.spawnSpeed -= 50;
+        if(this.spawnSpeed > GAME_MIN_SPAWN_SPEED){
+          this.spawnSpeed -= 50;
+        }
         
         this.cars.splice(index, 1);
       }
@@ -250,7 +251,7 @@ class Game{
     this.player = new Car(this, 1, true);
     this.cars = [ this.player ];
     this.carSpeed = this.options.carSpeed || CAR_SPEED;
-    this.spawnSpeed = GAME_MIN_SPAWN_SPEED;
+    this.spawnSpeed = GAME_DEFAULT_START_SPAWN_SPEED;
     this.score = 0;
     
     this.generateCars();
