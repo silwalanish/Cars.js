@@ -16,7 +16,12 @@ const KEY_LEFT = 37;
 const KEY_RIGHT = 39;
 
 const CAR_TEXTURE = new Image();
-CAR_TEXTURE.src = "../images/cars-spritesheet.png";
+var CAR_TEXTURE_LOADED = false;
+CAR_TEXTURE.onload = () => {
+  CAR_TEXTURE_LOADED = true;
+};
+CAR_TEXTURE.src = "./images/cars-spritesheet.png";
+
 const NUM_TEXTURE = 5;
 const TEXTURE_X = 2;
 const TEXTURE_Y = 4;
@@ -51,8 +56,10 @@ class Car{
     if(!this.isPlayer){
       ctx.rotate(Math.PI);
     }
-    ctx.drawImage(CAR_TEXTURE, (TEXTURE_X  + TEXTURE_WIDTH) * this.textureIndex, TEXTURE_Y, TEXTURE_WIDTH, TEXTURE_HEIGHT, 
-      -this.width / 2, -this.height / 2, this.width, this.height);
+    if(CAR_TEXTURE_LOADED){
+      ctx.drawImage(CAR_TEXTURE, (TEXTURE_X  + TEXTURE_WIDTH) * this.textureIndex, TEXTURE_Y, TEXTURE_WIDTH, TEXTURE_HEIGHT, 
+        -this.width / 2, -this.height / 2, this.width, this.height);
+    }
     ctx.restore();
     ctx.closePath();
   }
@@ -112,6 +119,8 @@ class Game{
     this.playBtn.style.transform = "translate(-50%, -50%)";
     this.playBtn.addEventListener('click', () => { 
       this.start(); 
+      console.log("okay");
+      
       this.playBtn.style.display = "none";
     });
     
